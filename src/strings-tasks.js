@@ -473,8 +473,18 @@ function extractEmails(str) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const shift13 = (char) => {
+    const code = char.charCodeAt(0);
+    if ((code >= 65 && code < 78) || (code >= 97 && code < 110)) {
+      return code + 13;
+    }
+    if ((code >= 78 && code <= 90) || (code >= 110 && code <= 122)) {
+      return code - 13;
+    }
+    return code;
+  };
+  return [...str].map((char) => String.fromCharCode(shift13(char))).join('');
 }
 
 /**
